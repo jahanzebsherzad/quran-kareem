@@ -1,0 +1,23 @@
+ماشاءالله! 🎉
+index.html سم شو! فایل GitHub کې دی!
+اوس codemagic.yaml جوړوو
+GitHub کې + → Create new file کلیک کړه
+نوم ولیکه:
+codemagic.yaml
+بیا دا کوډ پیسټ کړه:
+workflows:
+  android-workflow:
+    name: Quran Kareem APK
+    max_build_duration: 60
+    scripts:
+      - name: Build APK
+        script: |
+          npm install -g cordova
+          cordova create app com.quran.kareem QuranKareem
+          rm -rf app/www/*
+          cp index.html app/www/index.html
+          cd app
+          cordova platform add android
+          cordova build android --debug
+    artifacts:
+      - app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
